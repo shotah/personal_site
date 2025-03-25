@@ -1,7 +1,7 @@
 // src/app/page.tsx
-"use client";
+'use client';
 
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/navbar';
 import Hero from './components/hero';
@@ -9,13 +9,17 @@ import About from './components/about';
 import Skills from './components/skills';
 import Experience from './components/experience';
 import Contact from './components/contact';
+import GithubStats from './components/github';
+import Interests from './components/interests';
 
 export default function Home() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    ).matches;
     let initialTheme: 'light' | 'dark' = 'light';
 
     if (storedTheme) {
@@ -46,14 +50,18 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-vh-100 ${theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'} py-5`}>
+    <div
+      className={`min-vh-100 ${theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'} py-5`}
+    >
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <main className="container py-5">
         <Hero theme={theme} />
         <About />
         <Skills theme={theme} />
+        <GithubStats username="shotah" theme={theme} />
+        <Interests theme={theme} />
         <Experience />
-        <Contact />
+        <Contact theme={theme} />
       </main>
     </div>
   );

@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 # Install and build
 COPY package*.json ./
+COPY tsconfig.json ./
 RUN npm install --omit=dev
 COPY src /usr/src/app/src
 COPY public /usr/src/app/public
@@ -23,6 +24,7 @@ RUN adduser -S nextjs -u 1001 -G nodejs
 RUN chown -R nextjs:nodejs /usr/src/app
 
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/package*.json ./
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/tsconfig.json ./
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next ./.next

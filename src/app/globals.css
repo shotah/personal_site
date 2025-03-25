@@ -57,13 +57,13 @@ body {
 .btn-custom {
   background-color: var(--custom-button-color);
   border-color: var(--custom-button-color);
-  color: white;
+  color: var(--foreground);
 }
 
 .btn-custom:hover {
   background-color: #5a35a3;
   border-color: #5a35a3;
-  color: white;
+  color: var(--background);
 }
 
 .btn-custom:focus {

@@ -10,7 +10,11 @@ interface ContactFormData {
 // Email validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,3}$/;
 
-export default function Contact() {
+interface ContactProps {
+  theme: 'light' | 'dark';
+}
+
+export default function Contact({theme}: ContactProps) {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
