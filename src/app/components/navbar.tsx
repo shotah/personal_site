@@ -1,7 +1,6 @@
 // src/app/components/Navbar.tsx
 "use client";
 
-import { useState } from 'react';
 import Link from 'next/link'; // Import the Link component
 
 interface NavbarProps {

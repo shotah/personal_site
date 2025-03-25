@@ -1,14 +1,27 @@
 {
   "cSpell.words": [
+    "addgroup",
+    "adduser",
     "Biosystems",
+    "bldhosting",
     "Blodgett",
+    "certbot",
+    "certonly",
     "christopherblodgett",
     "Collabera",
     "Deque",
+    "EMAILJS",
+    "fullchain",
     "Leica",
+    "letsencrypt",
+    "libc",
     "Magnit",
     "Makefiles",
+    "nextjs",
     "pipenv",
-    "turbopack"
+    "privkey",
+    "shotah",
+    "turbopack",
+    "webroot"
   ]
 }

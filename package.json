@@ -1,6 +1,19 @@
 {
   "name": "personal_site",
-  "version": "0.1.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "next": ">=15.0.0",
+    "typescript": ">=5.0.0",
+    "npm": ">=10.0.0"
+  },
+  "engineStrict": true,
+  "eslintConfig": {
+    "extends": [
+      "next"
+    ]
+  },
+  "version": "1.0.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -8,28 +21,28 @@
     "start": "next start",
     "lint": "gts lint",
     "clean": "gts clean",
-    "compile": "tsc",
+    "compile": "npx tsc",
     "fix": "gts fix",
-    "prepare": "npm.cmd run compile",
-    "pretest": "npm.cmd run compile",
-    "posttest": "npm.cmd run lint"
+    "pretest": "npm run compile",
+    "posttest": "npm run lint"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "bootstrap": "^5.3.3",
-    "next": "15.2.3",
+    "next": "15.2.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tsc": "^2.0.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/bootstrap": "^5.2.10",
-    "@types/node": "^22.7.5",
-    "@types/react": "^19",
+    "@types/node": "22.13.13",
+    "@types/react": "19.0.12",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.2.3",
+    "eslint-config-next": "15.2.4",
     "gts": "^6.0.2",
-    "typescript": "^5.6.3"
+    "typescript": "5.8.2"
   }
 }

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Christopher Blodgett | Full-Stack Engineer", // Updated title
   description:
-    "Christopher Blodgett is a highly motivated Full-Stack Engineer with expertise in React, Go, AWS, and DevOps. View my portfolio and contact me.", // Updated description
+    "Christopher Blodgett is a highly motivated Full-Stack Engineer with expertise in React, Go, AWS, and DevOps. View my portfolio and contact me.",
   keywords: [
     "Christopher Blodgett",
     "Full-Stack Engineer",
@@ -29,6 +29,14 @@ export const metadata: Metadata = {
     "Seattle",
   ],
   authors: [{ name: "Christopher Blodgett" }],
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({

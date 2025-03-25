@@ -22,7 +22,7 @@ const Hero = ({ theme }: HeroProps) => {
                     <a href="https://linkedin.com/in/christopherblodgett" target="_blank" rel="noopener noreferrer" className={`link-${theme === 'dark' ? 'light' : 'dark'} text-decoration-none`}>linkedin.com/in/christopherblodgett</a>
                 </p>
                 <p className="mt-1">
-                    <a href="tel:+12063071599" className={`link-${theme === 'dark' ? 'light' : 'dark'} text-decoration-none`}>206-307-1599</a> | Seattle, WA
+                    Seattle, WA
                 </p>
                 <div className="mt-4 d-flex justify-content-center align-items-center gap-4">
                     <div className="rounded-circle overflow-hidden shadow" style={{ width: '150px', height: '150px' }}>

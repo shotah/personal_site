@@ -1,11 +1,35 @@
-version: "3"
-
+version: '3.8'
 services:
-  personal_site:
-    build:
-      context: .
-      dockerfile: dockerfile
+  nginx-proxy:
+    image: nginx:latest
     ports:
-      - "3000:3000"
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./letsencrypt/data:/etc/letsencrypt
+      - ./nginx/webroot:/var/www/certbot # Mount webroot for challenge
+    networks:
+      - my-network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./letsencrypt/data:/etc/letsencrypt
+      - ./nginx/webroot:/var/www/certbot # Mount webroot for challenge
+    command: >
+      sh -c "certbot certonly --webroot -w /var/www/certbot -d chris.bldhosting.com --non-interactive --agree-tos --email christopherblodgett@gmail.com --force-renewal; while :; do sleep 6h & wait $${!}; certbot renew; done"
+    networks:
+      - my-network
+
+  personal_site:
+    image: shotah/blodgett-site
+    ports:
+      - '3000:3000'
     volumes:
       - .:/app
+    networks:
+      - my-network
+
+networks:
+  my-network:

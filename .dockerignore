@@ -1,7 +1,13 @@
-node_modules
+# Build directories:
 .next
+build
 out
-.env
+
+# os stuff
+.vscode
 .DS_Store
+
+# Node stuff
+node_modules
 npm-debug.log
 yarn-error.log
