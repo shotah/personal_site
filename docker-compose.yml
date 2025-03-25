@@ -1,35 +1,56 @@
 version: '3.8'
+
 services:
+  personal-site:
+    image: shotah/blodgett-site:latest
+    container_name: personal-site
+    environment:
+      - VIRTUAL_HOST=chris.bldhosting.com
+      - LETSENCRYPT_HOST=chris.bldhosting.com
+      - LETSENCRYPT_EMAIL=$${LETSENCRYPT_EMAIL}
+      - VIRTUAL_PORT=3000
+    networks:
+      - my-network
+    restart: always
+    env_file:
+      - .env
+
   nginx-proxy:
-    image: nginx:latest
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy # Force the container name
     ports:
       - '80:80'
       - '443:443'
     volumes:
-      - ./nginx/conf:/etc/nginx/conf.d
-      - ./letsencrypt/data:/etc/letsencrypt
-      - ./nginx/webroot:/var/www/certbot # Mount webroot for challenge
+      - ./nginx/vhost.d:/etc/nginx/vhost.d
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - my-network
+    depends_on:
+      - personal-site
+    restart: always
+    env_file:
+      - .env
 
-  certbot:
-    image: certbot/certbot
+  nginx-proxy-companion:
+    image: nginxproxy/acme-companion
     volumes:
-      - ./letsencrypt/data:/etc/letsencrypt
-      - ./nginx/webroot:/var/www/certbot # Mount webroot for challenge
-    command: >
-      sh -c "certbot certonly --webroot -w /var/www/certbot -d chris.bldhosting.com --non-interactive --agree-tos --email christopherblodgett@gmail.com --force-renewal; while :; do sleep 6h & wait $${!}; certbot renew; done"
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/vhost.d:/etc/nginx/vhost.d
+      - ./nginx/html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - my-network
-
-  personal_site:
-    image: shotah/blodgett-site
-    ports:
-      - '3000:3000'
-    volumes:
-      - .:/app
-    networks:
-      - my-network
+    depends_on:
+      - nginx-proxy
+    environment:
+      - DEFAULT_EMAIL=$${LETSENCRYPT_EMAIL}
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    restart: always
+    env_file:
+      - .env
 
 networks:
   my-network:

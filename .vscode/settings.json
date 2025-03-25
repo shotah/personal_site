@@ -1,4 +1,36 @@
 {
+  "editor.formatOnSave": true,
+  "code-runner.executorMap": {
+    "javascript": "node",
+    "typescript": "npx ts-node",
+    "shellscript": "bash  $fileName"
+  },
+  "[markdown]": {
+    "editor.tabSize": 2
+  },
+  "files.eol": "\n",
+  "files.autoSave": "off",
+  "files.trimFinalNewlines": true,
+  "files.associations": {},
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[tsx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "cSpell.words": [
     "addgroup",
     "adduser",
