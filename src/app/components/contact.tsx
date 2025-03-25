@@ -1,143 +1,163 @@
-// src/app/components/Contact.tsx
-"use client";
+'use client';
+import {useState} from 'react';
 
-import React, { useState } from 'react';
-import emailjs from '@emailjs/browser';
+interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}
 
-const Contact = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: '',
-    });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [isError, setIsError] = useState(false);
+// Email validation regex
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,3}$/;
 
-    emailjs.init({
-        publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '',
-        // Do not allow headless browsers
-        blockHeadless: true,
-        blockList: {
-            // Block the suspended emails
-            list: ['foo@emailjs.com', 'bar@emailjs.com'],
-            // The variable contains the email address
-            watchVariable: 'email',
+export default function Contact() {
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '',
+    email: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const {name, value} = event.target;
+    setFormData({...formData, [name]: value});
+    // Clear the error when the user starts typing
+    setErrors({...errors, [name]: ''});
+  };
+
+  const validateField = (name: string, value: string) => {
+    if (name === 'email') {
+      if (!emailRegex.test(value)) {
+        setErrors({...errors, [name]: 'Invalid email format'});
+        return false;
+      }
+    }
+    if (!value) {
+      setErrors({...errors, [name]: `${name} is required`});
+      return false;
+    }
+    return true;
+  };
+
+  const handleBlur = (
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const {name, value} = event.target;
+    validateField(name, value);
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    // Validate all fields before submitting
+    let isValid = true;
+    for (const key in formData) {
+      if (!validateField(key, formData[key as keyof ContactFormData])) {
+        isValid = false;
+      }
+    }
+
+    if (!isValid) {
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        limitRate: {
-            // Set the limit rate for the application
-            id: 'app',
-            // Allow 1 request per 5s
-            throttle: 5000,
-        },
-    });
+        body: JSON.stringify(formData),
+      });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+      const data = await response.json();
 
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        // Manually trigger handleChange when the input loses focus, to check for autofill
-        handleChange({ ...e, target: { ...e.target, value: e.target.value } } as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>);
-    };
+      if (response.ok) {
+        setSubmitMessage('Thank you for your message!');
+        setFormData({name: '', email: '', message: ''});
+        setErrors({});
+      } else {
+        setSubmitMessage(`Error: ${data.error}`);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitMessage('An unexpected error occurred.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setIsSuccess(false);
-        setIsError(false);
-
-        const templateParams = {
-            name: formData.name,
-            email: formData.email,
-            time: new Date().toLocaleString(),
-            message: formData.message,
-        };
-        try {
-            const response = await emailjs.send(
-                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
-                templateParams,
-            );
-            console.log('Email sent successfully!', response);
-            setIsSuccess(true);
-            setFormData({ name: '', email: '', message: '' });
-        } catch (error) {
-            console.error('Error sending email:', error);
-            setIsError(true);
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    return (
-        <section id="contact" className="py-5">
-            <h2 className="section-header">Contact Me</h2> {/* Added section-header class */}
-            <p className="lead">Feel free to reach out!</p>
-            {isSuccess && (
-                <div className="alert alert-success" role="alert">
-                    Thank you! Your message has been sent.
-                </div>
-            )}
-            {isError && (
-                <div className="alert alert-danger" role="alert">
-                    Oops! There was an error sending your message. Please try again later.
-                </div>
-            )}
-            <form onSubmit={handleSubmit} className="col-md-6 mx-auto">
-                <div className="mb-3">
-                    <label htmlFor="name" className="form-label">
-                        Name:
-                    </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                        Email:
-                    </label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="message" className="form-label">
-                        Message:
-                    </label>
-                    <textarea
-                        className="form-control"
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        required
-                    ></textarea>
-                </div>
-                <button type="submit" className="btn btn-custom" disabled={isSubmitting}>
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                </button>
-            </form>
-        </section>
-    );
-};
-
-export default Contact;
+  return (
+    <section id="contact" className="py-5 container">
+      <h2 className="section-header mb-5">Contact</h2>
+      <form onSubmit={handleSubmit} autoComplete="on">
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Name:
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+            required
+          />
+          {errors.name && <div className="invalid-feedback">{errors.name}</div>}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email:
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+            required
+          />
+          {errors.email && (
+            <div className="invalid-feedback">{errors.email}</div>
+          )}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="message" className="form-label">
+            Message:
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`form-control ${errors.message ? 'is-invalid' : ''}`}
+            required
+          />
+          {errors.message && (
+            <div className="invalid-feedback">{errors.message}</div>
+          )}
+        </div>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="btn btn-custom"
+        >
+          {isSubmitting ? 'Sending...' : 'Send'}
+        </button>
+        {submitMessage && <p className="mt-3">{submitMessage}</p>}
+      </form>
+    </section>
+  );
+}
