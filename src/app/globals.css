@@ -1,16 +1,36 @@
 /* Bootstrap CSS import should remain here */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-:root {
+/* Import fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+/* Light Theme */
+.light-theme {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
+  --custom-button-color: #6f42c1;
+  --header-color: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ededed;
-  }
+/* Dark Theme */
+.dark-theme {
+  --background: #000000;
+  --foreground: #ededed;
+  --primary: #0099ff;
+  --secondary: #a8b3ba;
+  --success: #3abf57;
+  --danger: #ed4c5c;
+  --warning: #ffcf3c;
+  --info: #40c3d9;
+  --custom-button-color: #a080e0;
+  --header-color: #ffffff;
 }
 
 html,
@@ -20,26 +40,90 @@ body {
 }
 
 body {
+  font-family: 'Roboto', sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Hero Section Rounded Corners */
+.hero-section {
+  position: relative;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+/* Custom Button Styles */
+.btn-custom {
+  background-color: var(--custom-button-color);
+  border-color: var(--custom-button-color);
+  color: white;
+}
+
+.btn-custom:hover {
+  background-color: #5a35a3;
+  border-color: #5a35a3;
+  color: white;
+}
+
+.btn-custom:focus {
+  box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.5);
+}
+
+/* Skill Header Styles */
+.skill-header {
+  font-weight: 500;
+}
+
+/* Section Header Styles */
+.section-header {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--header-color);
+}
+
+/* Navbar Link Styles */
+.navbar-nav .navbar-link {
+  /* More specific selector */
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+/* Apply theme colors to body */
+.light-theme body {
+  background-color: var(--background);
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.dark-theme body {
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Experience Timeline Styles */
+.experience-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.timeline-item {
+  display: flex;
+  gap: 2rem;
+}
+
+.timeline-date {
+  flex-shrink: 0;
+  width: 120px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.timeline-content {
+  flex-grow: 1;
+}
+
+.timeline-title {
+  margin-bottom: 0.5rem;
 }
