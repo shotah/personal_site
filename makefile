@@ -6,6 +6,7 @@ endif
 SHELL := /bin/bash
 export
 
+# --- Project Setup ---
 all: install test
 
 .PHONY: install
@@ -27,10 +28,6 @@ lint:
 .PHONY: fix
 fix:
 	npm run fix
-
-.PHONY: gh-lint
-gh-lint:
-	npm run lint:gh
 
 # build
 .PHONY: build
@@ -55,7 +52,6 @@ npm-upgrade:
 #####################
 DOCKER_CONTAINER_NAME := "blodgett-site"
 DOCKER_IMAGE_NAME := "shotah/$(DOCKER_CONTAINER_NAME)"
-# Deployment: Build the image with the deployment stage
 
 .PHONY: build-no-cache
 build-no-cache:
@@ -93,3 +89,38 @@ docker-destroy:
 .PHONY: docker-push
 docker-push:
 	docker push $(DOCKER_IMAGE_NAME)
+
+#####################
+# DOCKER COMPOSE
+#####################
+DOCKER_COMPOSE_FILE := docker-compose.yml
+REMOTE_USER := christopher
+REMOTE_SERVER := 192.168.1.200
+REMOTE_PATH := /website/
+SERVER_ADDRESS := $(REMOTE_USER)@$(REMOTE_SERVER)
+
+.PHONY: compose-up
+compose-up:
+	docker compose -f $(DOCKER_COMPOSE_FILE) up -d
+
+.PHONY: compose-down
+compose-down:
+	docker compose -f $(DOCKER_COMPOSE_FILE) down
+
+.PHONY: compose-build
+compose-build:
+	docker compose -f $(DOCKER_COMPOSE_FILE) build
+
+.PHONY: compose-restart
+compose-restart: compose-down compose-up
+
+.PHONY: copy-all-to-server
+copy-all-to-server:
+	scp $(DOCKER_COMPOSE_FILE) $(SERVER_ADDRESS):$(REMOTE_PATH) && \
+	scp .env $(SERVER_ADDRESS):$(REMOTE_PATH) && \
+	scp -r nginx $(SERVER_ADDRESS):$(REMOTE_PATH)
+	@echo "All files copied to server successfully!"
+
+.PHONY: deploy-to-server
+deploy-to-server: copy-all-to-server
+	ssh $(SERVER_ADDRESS) "cd $(REMOTE_PATH) && docker compose -f $(DOCKER_COMPOSE_FILE) down && docker compose -f $(DOCKER_COMPOSE_FILE) up -d"
