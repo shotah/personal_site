@@ -50,8 +50,7 @@ npm-upgrade:
 #####################
 # DOCKER API #
 #####################
-DOCKER_CONTAINER_NAME := "blodgett-site"
-DOCKER_IMAGE_NAME := "shotah/$(DOCKER_CONTAINER_NAME)"
+DOCKER_IMAGE_NAME := "$(DOCKER_REPO)/$(DOCKER_CONTAINER_NAME):${DOCKER_TAG}"
 
 .PHONY: build-no-cache
 build-no-cache:
@@ -92,9 +91,6 @@ docker-push:
 # DOCKER COMPOSE
 #####################
 DOCKER_COMPOSE_FILE := docker-compose.yml
-REMOTE_USER := christopher
-REMOTE_SERVER := 192.168.1.200
-REMOTE_PATH := /website/
 SERVER_ADDRESS := $(REMOTE_USER)@$(REMOTE_SERVER)
 
 .PHONY: compose-up

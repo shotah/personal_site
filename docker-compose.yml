@@ -5,8 +5,8 @@ services:
     image: shotah/blodgett-site:latest
     container_name: personal-site
     environment:
-      - VIRTUAL_HOST=chris.bldhosting.com
-      - LETSENCRYPT_HOST=chris.bldhosting.com
+      - VIRTUAL_HOST=$${LETSENCRYPT_HOSTNAME}
+      - LETSENCRYPT_HOST=$${LETSENCRYPT_HOSTNAME}
       - LETSENCRYPT_EMAIL=$${LETSENCRYPT_EMAIL}
       - EMAIL_SERVER_USER=${EMAIL_SERVER_USER}
       - EMAIL_SERVER_PASSWORD=${EMAIL_SERVER_PASSWORD}
