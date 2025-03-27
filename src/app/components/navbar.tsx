@@ -10,15 +10,11 @@ interface NavbarProps {
 
 const Navbar = ({theme, toggleTheme}: NavbarProps) => {
   return (
-    <header
-      className={`bg-${theme === 'dark' ? 'dark' : 'light'} py-3 fixed-top`}
-    >
-      <nav
-        className={`navbar navbar-expand-lg navbar--${theme === 'dark' ? 'light' : 'dark'}`}
-      >
-        <div className="container">
+    <header className={`bg-${theme} py-3 fixed-top`}>
+      <nav className={`navbar navbar-expand-lg navbar-${theme}`}>
+        <div className={`container`}>
           <button
-            className={`navbar-toggler btn-outline-${theme === 'dark' ? 'light' : 'dark'}`}
+            className={`navbar-toggler`}
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -26,19 +22,17 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span
-              className={`navbar-toggler-icon btn-outline-${theme === 'dark' ? 'light' : 'dark'}`}
-            ></span>
+            <span className={`navbar-toggler-icon`}></span>
           </button>
           <div
-            className={`collapse navbar-collapse justify-content-center btn-outline-${theme === 'dark' ? 'light' : 'dark'}`}
+            className={`collapse navbar-collapse justify-content-center`}
             id="navbarNav"
           >
-            <ul className="navbar-nav">
+            <ul className={`navbar-nav`}>
               <li className="nav-item">
                 <Link
                   href="/"
-                  className={`nav-link active navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
+                  className={`nav-link navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
                 >
                   Home
                 </Link>{' '}

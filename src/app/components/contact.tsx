@@ -22,6 +22,7 @@ export default function Contact({theme}: ContactProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const handleChange = (
@@ -58,6 +59,7 @@ export default function Contact({theme}: ContactProps) {
     event.preventDefault();
     setIsSubmitting(true);
     setSubmitMessage('');
+    setIsSuccess(null);
 
     // Validate all fields before submitting
     let isValid = true;
@@ -85,14 +87,17 @@ export default function Contact({theme}: ContactProps) {
 
       if (response.ok) {
         setSubmitMessage('Thank you for your message!');
+        setIsSuccess(true);
         setFormData({name: '', email: '', message: ''});
         setErrors({});
       } else {
         setSubmitMessage(`Error: ${data.error}`);
+        setIsSuccess(false);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitMessage('An unexpected error occurred.');
+      setIsSuccess(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -160,8 +165,17 @@ export default function Contact({theme}: ContactProps) {
         >
           {isSubmitting ? 'Sending...' : 'Send'}
         </button>
-        {submitMessage && <p className="mt-3">{submitMessage}</p>}
       </form>
+      {submitMessage && (
+        <div
+          className={`alert mt-3 ${
+            isSuccess ? 'alert-success' : 'alert-danger'
+          }`}
+          role="alert"
+        >
+          {submitMessage}
+        </div>
+      )}
     </section>
   );
 }

@@ -50,16 +50,8 @@ const GithubStats: React.FC<GithubStatsProps> = ({username, theme}) => {
     return (
       <section id="github-stats" className="py-5 container">
         <h2 className="section-header mb-5">GitHub Stats</h2>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '150px',
-            textAlign: 'center',
-          }}
-        >
-          <p>Loading GitHub stats...</p>
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status" />
         </div>
       </section>
     );
@@ -69,16 +61,10 @@ const GithubStats: React.FC<GithubStatsProps> = ({username, theme}) => {
     return (
       <section id="github-stats" className="py-5 container">
         <h2 className="section-header mb-5">GitHub Stats</h2>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '150px',
-            textAlign: 'center',
-          }}
-        >
-          <p>Error: {error}</p>
+        <div className="d-flex justify-content-center">
+          <div className="alert alert-danger" role="alert">
+            Error: {error}
+          </div>
         </div>
       </section>
     );
