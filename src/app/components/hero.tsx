@@ -74,6 +74,7 @@ const Hero = ({theme}: HeroProps) => {
               width={150}
               height={150}
               style={{objectFit: 'cover'}}
+              priority
             />
           </div>
         </div>

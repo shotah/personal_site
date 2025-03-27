@@ -8,6 +8,12 @@
   "[markdown]": {
     "editor.tabSize": 2
   },
+  "[makefile]": {
+    "editor.formatOnSave": false,
+    "editor.insertSpaces": false, // Use tabs instead of spaces
+    "editor.tabSize": 4, // Set tab size to 4 (or your preference)
+    "editor.detectIndentation": false // Disable auto-detection of indentation
+  },
   "files.eol": "\n",
   "files.autoSave": "off",
   "files.trimFinalNewlines": true,
@@ -45,17 +51,20 @@
     "Dockerized",
     "EMAILJS",
     "fullchain",
+    "googleanalytics",
     "Leica",
     "letsencrypt",
     "libc",
     "Magnit",
     "Makefiles",
     "nextjs",
+    "nginxproxy",
     "pipenv",
     "privkey",
     "shotah",
     "turbopack",
     "vercel",
+    "vhost",
     "webroot"
   ]
 }

@@ -4,6 +4,9 @@
 FROM node:20-alpine AS builder
 WORKDIR /usr/src/app
 
+# disable nextjs telemetry
+RUN npx next telemetry disable
+
 # Install and build
 COPY package*.json ./
 COPY tsconfig.json ./
@@ -17,6 +20,10 @@ RUN npm run build
 ########################
 FROM node:20-alpine AS production
 WORKDIR /usr/src/app
+
+# disable nextjs telemetry
+RUN npx next telemetry disable
+
 
 # Create a non-root user
 RUN addgroup -g 1001 -S nodejs

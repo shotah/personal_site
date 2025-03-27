@@ -1,5 +1,6 @@
 .SILENT: # Disable echo of commands
-ifneq ("$(wildcard .env)","")
+ifneq ("$(wildcard .env)", "")
+# MAKE SURE THIS IS SPACES AND NOT TAB!!!
     include .env
 endif
 
@@ -67,6 +68,7 @@ docker-run: docker-build
 		--name $(DOCKER_CONTAINER_NAME) \
 		-e EMAIL_SERVER_USER=$(EMAIL_SERVER_USER) \
 		-e EMAIL_SERVER_PASSWORD=$(EMAIL_SERVER_PASSWORD) \
+    -e NEXT_PUBLIC_GA_MEASUREMENT_ID=$(NEXT_PUBLIC_GA_MEASUREMENT_ID) \
 		$(DOCKER_IMAGE_NAME)
 
 .PHONY: docker-run-detached
@@ -76,6 +78,7 @@ docker-run-detached: docker-build
 		--name $(DOCKER_CONTAINER_NAME) \
 		-e EMAIL_SERVER_USER=$(EMAIL_SERVER_USER) \
 		-e EMAIL_SERVER_PASSWORD=$(EMAIL_SERVER_PASSWORD) \
+    -e NEXT_PUBLIC_GA_MEASUREMENT_ID=$(NEXT_PUBLIC_GA_MEASUREMENT_ID) \
 		$(DOCKER_IMAGE_NAME)
 
 .PHONY: docker-destroy
@@ -108,13 +111,24 @@ compose-build:
 .PHONY: compose-restart
 compose-restart: compose-down compose-up
 
-.PHONY: copy-all-to-server
-copy-all-to-server:
-	scp $(DOCKER_COMPOSE_FILE) $(SERVER_ADDRESS):$(REMOTE_PATH) && \
-	scp .env $(SERVER_ADDRESS):$(REMOTE_PATH) && \
-	scp -r nginx $(SERVER_ADDRESS):$(REMOTE_PATH)
+# WSL SCP: DELETE WSL if on Linux
+.PHONY: copy-to-server
+copy-to-server:
+	@echo "Copying files to $(SERVER_ADDRESS)..."
+	wsl scp -i ~/.ssh/id_rsa -r $(DOCKER_COMPOSE_FILE) .env nginx $(SERVER_ADDRESS):$(REMOTE_PATH)
 	@echo "All files copied to server successfully!"
 
 .PHONY: deploy-to-server
-deploy-to-server: copy-all-to-server
-	ssh $(SERVER_ADDRESS) "cd $(REMOTE_PATH) && docker compose -f $(DOCKER_COMPOSE_FILE) down && docker compose -f $(DOCKER_COMPOSE_FILE) up -d"
+deploy-to-server:
+	@echo "Deploying application on the $(SERVER_ADDRESS)..."
+	wsl ssh $(SERVER_ADDRESS) "cd $(REMOTE_PATH) && \
+		sudo -S docker pull $(DOCKER_IMAGE_NAME) && \
+		sudo -S docker-compose -f $(DOCKER_COMPOSE_FILE) down && \
+		sudo -S docker-compose -f $(DOCKER_COMPOSE_FILE) up -d"
+	@echo "Application deployed successfully!"
+
+.PHONY: debug
+debug:
+	@echo "REMOTE_USER=$(REMOTE_USER)"
+	@echo "REMOTE_SERVER=$(REMOTE_SERVER)"
+	@echo "SERVER_ADDRESS=$(SERVER_ADDRESS)"

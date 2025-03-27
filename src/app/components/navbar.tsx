@@ -13,10 +13,12 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
     <header
       className={`bg-${theme === 'dark' ? 'dark' : 'light'} py-3 fixed-top`}
     >
-      <nav className="navbar navbar-expand-lg navbar-light">
+      <nav
+        className={`navbar navbar-expand-lg navbar--${theme === 'dark' ? 'light' : 'dark'}`}
+      >
         <div className="container">
           <button
-            className="navbar-toggler"
+            className={`navbar-toggler btn-outline-${theme === 'dark' ? 'light' : 'dark'}`}
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"
@@ -24,10 +26,12 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span
+              className={`navbar-toggler-icon btn-outline-${theme === 'dark' ? 'light' : 'dark'}`}
+            ></span>
           </button>
           <div
-            className="collapse navbar-collapse justify-content-center"
+            className={`collapse navbar-collapse justify-content-center btn-outline-${theme === 'dark' ? 'light' : 'dark'}`}
             id="navbarNav"
           >
             <ul className="navbar-nav">

@@ -68,6 +68,9 @@ Before you begin, ensure you have the following installed:
     REMOTE_USER=your_remote_user
     REMOTE_SERVER=your_server_ip
     REMOTE_PATH=/path/to/deployment/directory
+
+    # public google tracking token ID
+    NEXT_PUBLIC_GA_MEASUREMENT_ID=YOUR_GA4_MEASUREMENT_ID
     ```
 
     **Important:** Replace the placeholder values in `.env` with your actual credentials and settings.
