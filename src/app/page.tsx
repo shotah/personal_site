@@ -11,6 +11,7 @@ import Experience from './components/experience';
 import Contact from './components/contact';
 import GithubStats from './components/github';
 import Interests from './components/interests';
+import GoogleAnalytics from './components/googleanalytics';
 
 export default function Home() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -53,6 +54,7 @@ export default function Home() {
     <div
       className={`min-vh-100 ${theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'} py-5`}
     >
+      <GoogleAnalytics />;
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <main className="container py-5">
         <Hero theme={theme} />

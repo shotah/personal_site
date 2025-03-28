@@ -119,7 +119,7 @@ copy-to-server:
 	@echo "All files copied to server successfully!"
 
 .PHONY: deploy-to-server
-deploy-to-server:
+deploy-to-server: copy-to-server
 	@echo "Deploying application on the $(SERVER_ADDRESS)..."
 	wsl ssh $(SERVER_ADDRESS) "cd $(REMOTE_PATH) && \
 		sudo -S docker pull $(DOCKER_IMAGE_NAME) && \
