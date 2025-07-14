@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 interface GithubStatsProps {
   username: string;
@@ -11,13 +12,16 @@ interface GithubStatsData {
   streakStats: string | null;
 }
 
-const GithubStats: React.FC<GithubStatsProps> = ({username, theme}) => {
+const GithubStats: React.FC<GithubStatsProps> = ({
+  username,
+  theme,
+}): React.JSX.Element => {
   const [data, setData] = useState<GithubStatsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchGithubStats = async () => {
+  useEffect((): void => {
+    const fetchGithubStats = async (): Promise<void> => {
       setLoading(true);
       setError(null);
 
@@ -81,7 +85,7 @@ const GithubStats: React.FC<GithubStatsProps> = ({username, theme}) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
+              <Image
                 src={`data:image/svg+xml;base64,${btoa(data.stats)}`}
                 alt="GitHub Stats"
                 className="img-fluid"
@@ -98,7 +102,7 @@ const GithubStats: React.FC<GithubStatsProps> = ({username, theme}) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
+              <Image
                 src={`data:image/svg+xml;base64,${btoa(data.topLangs)}`}
                 alt="Top Languages"
                 className="img-fluid"
@@ -115,7 +119,7 @@ const GithubStats: React.FC<GithubStatsProps> = ({username, theme}) => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img
+              <Image
                 src={`data:image/svg+xml;base64,${btoa(data.streakStats)}`}
                 alt="GitHub Streak"
                 className="img-fluid"

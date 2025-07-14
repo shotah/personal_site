@@ -3,7 +3,7 @@ interface SkillsProps {
   theme: 'light' | 'dark';
 }
 
-const Skills = ({theme}: SkillsProps) => {
+const Skills = ({ theme }: SkillsProps): React.JSX.Element => {
   return (
     <section id="skills" className="py-5 container">
       <h2 className="mb-5 section-header">Skills</h2>{' '}
@@ -11,7 +11,9 @@ const Skills = ({theme}: SkillsProps) => {
       <div className="row">
         <div className="col-md-2 offset-md-1">
           <h5
-            className={`skill-header text-${theme === 'dark' ? 'light' : 'dark'}`}
+            className={`skill-header text-${
+              theme === 'dark' ? 'light' : 'dark'
+            }`}
           >
             Front-End:
           </h5>
@@ -23,7 +25,9 @@ const Skills = ({theme}: SkillsProps) => {
       <div className="row">
         <div className="col-md-2 offset-md-1">
           <h5
-            className={`skill-header text-${theme === 'dark' ? 'light' : 'dark'}`}
+            className={`skill-header text-${
+              theme === 'dark' ? 'light' : 'dark'
+            }`}
           >
             Back-End:
           </h5>
@@ -35,7 +39,9 @@ const Skills = ({theme}: SkillsProps) => {
       <div className="row">
         <div className="col-md-2 offset-md-1">
           <h5
-            className={`skill-header text-${theme === 'dark' ? 'light' : 'dark'}`}
+            className={`skill-header text-${
+              theme === 'dark' ? 'light' : 'dark'
+            }`}
           >
             Cloud:
           </h5>
@@ -50,7 +56,9 @@ const Skills = ({theme}: SkillsProps) => {
       <div className="row">
         <div className="col-md-2 offset-md-1">
           <h5
-            className={`skill-header text-${theme === 'dark' ? 'light' : 'dark'}`}
+            className={`skill-header text-${
+              theme === 'dark' ? 'light' : 'dark'
+            }`}
           >
             DevOps:
           </h5>
@@ -65,7 +73,9 @@ const Skills = ({theme}: SkillsProps) => {
       <div className="row">
         <div className="col-md-2 offset-md-1">
           <h5
-            className={`skill-header text-${theme === 'dark' ? 'light' : 'dark'}`}
+            className={`skill-header text-${
+              theme === 'dark' ? 'light' : 'dark'
+            }`}
           >
             Databases:
           </h5>

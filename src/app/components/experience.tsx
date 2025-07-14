@@ -1,5 +1,5 @@
 // src/app/components/Experience.tsx
-const Experience = () => {
+const Experience = (): React.JSX.Element => {
   return (
     <section id="experience" className="py-5">
       <h2 className="section-header mb-5">Experience Highlights</h2>

@@ -1,6 +1,6 @@
 // src/app/components/Hero.tsx
 'use client';
-import {FaLinkedin, FaGithub, FaEnvelope} from 'react-icons/fa';
+import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,13 +8,17 @@ interface HeroProps {
   theme: 'light' | 'dark';
 }
 
-const Hero = ({theme}: HeroProps) => {
+const Hero = ({ theme }: HeroProps): React.JSX.Element => {
   return (
     <section
       id="hero"
       className="py-5 text-center hero-section"
       style={{
-        backgroundImage: `linear-gradient(to bottom, ${theme === 'dark' ? '#00000099' : '#ffffff99'}, ${theme === 'dark' ? '#00000099' : '#ffffff99'}), url('/hero-background.jpg')`,
+        backgroundImage: `linear-gradient(to bottom, ${
+          theme === 'dark' ? '#00000099' : '#ffffff99'
+        }, ${
+          theme === 'dark' ? '#00000099' : '#ffffff99'
+        }), url('/hero-background.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -29,7 +33,9 @@ const Hero = ({theme}: HeroProps) => {
             href="#contact"
             role="button"
             title="Go to Contact section"
-            className={`link-${theme === 'dark' ? 'light' : 'dark'} text-decoration-none d-flex align-items-center gap-2`}
+            className={`link-${
+              theme === 'dark' ? 'light' : 'dark'
+            } text-decoration-none d-flex align-items-center gap-2`}
           >
             <FaEnvelope
               size={20}
@@ -41,7 +47,9 @@ const Hero = ({theme}: HeroProps) => {
             href="https://linkedin.com/in/christopherblodgett"
             target="_blank"
             rel="noopener noreferrer"
-            className={`link-${theme === 'dark' ? 'light' : 'dark'} text-decoration-none d-flex align-items-center gap-2`}
+            className={`link-${
+              theme === 'dark' ? 'light' : 'dark'
+            } text-decoration-none d-flex align-items-center gap-2`}
           >
             <FaLinkedin
               size={20}
@@ -53,7 +61,9 @@ const Hero = ({theme}: HeroProps) => {
             href="https://github.com/shotah"
             target="_blank"
             rel="noopener noreferrer"
-            className={`link-${theme === 'dark' ? 'light' : 'dark'} text-decoration-none d-flex align-items-center gap-2`}
+            className={`link-${
+              theme === 'dark' ? 'light' : 'dark'
+            } text-decoration-none d-flex align-items-center gap-2`}
           >
             <FaGithub
               size={20}
@@ -66,14 +76,14 @@ const Hero = ({theme}: HeroProps) => {
         <div className="mt-4 d-flex justify-content-center align-items-center gap-4">
           <div
             className="rounded-circle overflow-hidden shadow"
-            style={{width: '150px', height: '150px'}}
+            style={{ width: '150px', height: '150px' }}
           >
             <Image
               src="/profile.jpg"
               alt="Christopher Blodgett Profile Picture"
               width={150}
               height={150}
-              style={{objectFit: 'cover'}}
+              style={{ objectFit: 'cover' }}
               priority
             />
           </div>

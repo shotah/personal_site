@@ -1,6 +1,6 @@
-import {NextRequest, NextResponse} from 'next/server';
-import axios from 'axios';
-
+import { NextRequest, NextResponse } from 'next/server';
+import logger from '@/lib/logger';
+//
 // Define the type for the cache entry
 interface CacheEntry {
   stats: string | null;
@@ -27,9 +27,9 @@ const cache: Record<'dark' | 'light', CacheEntry> = {
 
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // Cache for 24 hours
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse<unknown>> {
   try {
-    const {searchParams} = new URL(req.url);
+    const { searchParams } = new URL(req.url);
     const user = searchParams.get('user');
     const theme = searchParams.get('theme') as 'dark' | 'light';
     const now = Date.now();
@@ -37,14 +37,14 @@ export async function GET(req: NextRequest) {
     // Validate query parameters
     if (!user) {
       return NextResponse.json(
-        {error: 'Missing "user" query parameter.'},
-        {status: 400},
+        { error: 'Missing "user" query parameter.' },
+        { status: 400 },
       );
     }
     if (theme !== 'dark' && theme !== 'light') {
       return NextResponse.json(
-        {error: 'Invalid theme. Use "dark" or "light".'},
-        {status: 400},
+        { error: 'Invalid theme. Use "dark" or "light".' },
+        { status: 400 },
       );
     }
 
@@ -57,27 +57,45 @@ export async function GET(req: NextRequest) {
         // Fetch all three endpoints
         const [statsResponse, topLangsResponse, streakStatsResponse] =
           await Promise.all([
-            axios.get(
+            fetch(
               `https://github-readme-stats.vercel.app/api?username=${user}&show_icons=true&theme=${theme}`,
-            ),
-            axios.get(
+            ).then((res) => {
+              if (!res.ok)
+                logger('error', `Failed to fetch stats: ${res.statusText}`);
+              return res.text();
+            }),
+            fetch(
               `https://github-readme-stats.vercel.app/api/top-langs/?username=${user}&hide=C,Makefile,HTML,CSS&layout=compact&theme=${theme}`,
-            ),
-            axios.get(
+            ).then((res) => {
+              if (!res.ok)
+                logger(
+                  'error',
+                  `Failed to fetch top languages: ${res.statusText}`,
+                );
+              return res.text();
+            }),
+            fetch(
               `https://github-readme-streak-stats.herokuapp.com/?user=${user}&theme=${theme}`,
-            ),
+            ).then((res) => {
+              if (!res.ok)
+                logger(
+                  'error',
+                  `Failed to fetch streak stats: ${res.statusText}`,
+                );
+              return res.text();
+            }),
           ]);
 
         // Update the cache for the requested theme
-        cache[theme].stats = statsResponse.data;
-        cache[theme].topLangs = topLangsResponse.data;
-        cache[theme].streakStats = streakStatsResponse.data;
+        cache[theme].stats = statsResponse;
+        cache[theme].topLangs = topLangsResponse;
+        cache[theme].streakStats = streakStatsResponse;
         cache[theme].lastFetchTime = now;
       } catch (error) {
         console.error('Failed to fetch GitHub stats:', error);
         return NextResponse.json(
-          {error: 'Failed to fetch GitHub stats'},
-          {status: 500},
+          { error: 'Failed to fetch GitHub stats' },
+          { status: 500 },
         );
       }
     }
@@ -91,8 +109,8 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.error('Unexpected error:', error);
     return NextResponse.json(
-      {error: 'An unexpected error occurred'},
-      {status: 500},
+      { error: 'An unexpected error occurred' },
+      { status: 500 },
     );
   }
 }

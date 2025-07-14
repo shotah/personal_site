@@ -8,7 +8,7 @@ interface NavbarProps {
   toggleTheme: () => void;
 }
 
-const Navbar = ({theme, toggleTheme}: NavbarProps) => {
+const Navbar = ({ theme, toggleTheme }: NavbarProps): React.JSX.Element => {
   return (
     <header className={`bg-${theme} py-3 fixed-top`}>
       <nav className={`navbar navbar-expand-lg navbar-${theme}`}>
@@ -32,14 +32,18 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
               <li className="nav-item">
                 <Link
                   href="/"
-                  className={`nav-link navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
+                  className={`nav-link navbar-link text-${
+                    theme === 'dark' ? 'light' : 'dark'
+                  }`}
                 >
                   Home
                 </Link>{' '}
               </li>
               <li className="nav-item">
                 <a
-                  className={`nav-link navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
+                  className={`nav-link navbar-link text-${
+                    theme === 'dark' ? 'light' : 'dark'
+                  }`}
                   href="#about"
                 >
                   About
@@ -47,7 +51,9 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
               </li>
               <li className="nav-item">
                 <a
-                  className={`nav-link navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
+                  className={`nav-link navbar-link text-${
+                    theme === 'dark' ? 'light' : 'dark'
+                  }`}
                   href="#skills"
                 >
                   Skills
@@ -55,7 +61,9 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
               </li>
               <li className="nav-item">
                 <a
-                  className={`nav-link navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
+                  className={`nav-link navbar-link text-${
+                    theme === 'dark' ? 'light' : 'dark'
+                  }`}
                   href="#github-stats"
                 >
                   GitHub Stats
@@ -63,7 +71,9 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
               </li>
               <li className="nav-item">
                 <a
-                  className={`nav-link navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
+                  className={`nav-link navbar-link text-${
+                    theme === 'dark' ? 'light' : 'dark'
+                  }`}
                   href="#interests"
                 >
                   Interests
@@ -71,7 +81,9 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
               </li>
               <li className="nav-item">
                 <a
-                  className={`nav-link navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
+                  className={`nav-link navbar-link text-${
+                    theme === 'dark' ? 'light' : 'dark'
+                  }`}
                   href="#experience"
                 >
                   Experience
@@ -79,7 +91,9 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
               </li>
               <li className="nav-item">
                 <a
-                  className={`nav-link navbar-link text-${theme === 'dark' ? 'light' : 'dark'}`}
+                  className={`nav-link navbar-link text-${
+                    theme === 'dark' ? 'light' : 'dark'
+                  }`}
                   href="#contact"
                 >
                   Contact
@@ -89,8 +103,10 @@ const Navbar = ({theme, toggleTheme}: NavbarProps) => {
           </div>
           <button
             onClick={toggleTheme}
-            className={`btn btn-sm btn-outline-${theme === 'dark' ? 'light' : 'dark'}`}
-            style={{fontSize: '0.9rem'}}
+            className={`btn btn-sm btn-outline-${
+              theme === 'dark' ? 'light' : 'dark'
+            }`}
+            style={{ fontSize: '0.9rem' }}
           >
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>

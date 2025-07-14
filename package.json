@@ -7,11 +7,6 @@
     "npm": ">=10.0.0"
   },
   "engineStrict": true,
-  "eslintConfig": {
-    "extends": [
-      "next"
-    ]
-  },
   "version": "1.0.0",
   "license": "MIT",
   "private": true,
@@ -19,16 +14,17 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "gts lint",
-    "clean": "gts clean",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "clean:powershell": "powershell Remove-Item './node_modules', './package-lock.json' -Force -Recurse -ea 0",
+    "clean:bash": "rm ./node_modules -fr && rm ./package-lock.json -fr",
     "compile": "npx tsc",
-    "fix": "gts fix",
+    "fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "pretest": "npm run compile",
     "posttest": "npm run lint"
   },
   "dependencies": {
-    "axios": "^1.10.0",
     "bootstrap": "^5.3.7",
+    "eslint-plugin-next": "^0.0.0",
     "next": "15.3.5",
     "nodemailer": "^7.0.5",
     "react": "^19.1.0",
@@ -39,14 +35,24 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.31.0",
+    "@next/eslint-plugin-next": "^15.3.5",
     "@types/bootstrap": "^5.2.10",
     "@types/node": "24.0.13",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "19.1.8",
     "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.36.0",
+    "@typescript-eslint/parser": "^8.36.0",
     "eslint": "^9",
-    "eslint-config-next": "15.3.5",
-    "gts": "^6.0.2",
-    "typescript": "5.8.3"
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-n": "^17.21.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "typescript": "5.8.3",
+    "typescript-eslint": "^8.36.0"
   }
 }

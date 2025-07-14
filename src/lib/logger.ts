@@ -2,7 +2,7 @@
 
 type LogLevel = 'info' | 'warn' | 'error';
 
-const log = (level: LogLevel, ...args: any[]) => {
+const log = (level: LogLevel, ...args: object[] | string[]): null => {
   if (process.env.NODE_ENV !== 'production') {
     switch (level) {
       case 'info':
@@ -18,6 +18,7 @@ const log = (level: LogLevel, ...args: any[]) => {
         console.log(...args);
     }
   }
+  return null;
 };
 
 export default log;

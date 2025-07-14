@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import ReactGA from 'react-ga4';
 import log from '../../lib/logger';
 
@@ -24,7 +24,7 @@ const GoogleAnalytics: React.FC = () => {
 
     const visibleSections = new Map<string, NodeJS.Timeout>();
 
-    const trackSectionView = (sectionId: string) => {
+    const trackSectionView = (sectionId: string): void => {
       log('info', `Tracking section view: #${sectionId}`);
 
       ReactGA.send({
@@ -51,8 +51,8 @@ const GoogleAnalytics: React.FC = () => {
     };
 
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           const sectionId = entry.target.id;
 
           if (entry.isIntersecting) {
@@ -81,7 +81,7 @@ const GoogleAnalytics: React.FC = () => {
     );
 
     const sections = document.querySelectorAll('section[id]');
-    sections.forEach(section => {
+    sections.forEach((section) => {
       const sectionId = section.id;
       const threshold = sectionThresholds[sectionId] ?? 0.5;
 
@@ -92,9 +92,9 @@ const GoogleAnalytics: React.FC = () => {
       observer.observe(section);
     });
 
-    return () => {
-      sections.forEach(section => observer.unobserve(section));
-      visibleSections.forEach(timeout => clearTimeout(timeout));
+    return (): void => {
+      sections.forEach((section) => observer.unobserve(section));
+      visibleSections.forEach((timeout) => clearTimeout(timeout));
     };
   }, [GA_MEASUREMENT_ID]);
 

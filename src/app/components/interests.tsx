@@ -3,11 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-interface InterestsProps {
-  theme: 'light' | 'dark';
-}
-
-const Interests: React.FC<InterestsProps> = ({theme}) => {
+const Interests: React.FC = () => {
   const images = [
     '/climbing.jpg',
     '/surfing.jpg',
@@ -52,7 +48,7 @@ const Interests: React.FC<InterestsProps> = ({theme}) => {
                     width={600}
                     height={400}
                     className="d-block w-100 rounded"
-                    style={{objectFit: 'cover', height: '400px'}}
+                    style={{ objectFit: 'cover', height: '400px' }}
                   />
                 </div>
               ))}

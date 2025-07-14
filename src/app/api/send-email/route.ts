@@ -1,6 +1,6 @@
-import {NextRequest, NextResponse} from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import log from '../../../lib/logger'; // Import the logger
+import logger from '@/lib/logger';
 
 // Define the type for the request body
 interface ContactFormData {
@@ -12,21 +12,24 @@ interface ContactFormData {
 // Email validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,3}$/;
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse<unknown>> {
   try {
     const body: ContactFormData = await req.json();
-    log('info', 'Received contact form data:', body);
+    logger('info', 'Received contact form data:', JSON.stringify(body));
 
     // 1. Validate the data
     if (!body.name || !body.email || !body.message) {
       return NextResponse.json(
-        {error: 'All fields are required'},
-        {status: 400},
+        { error: 'All fields are required' },
+        { status: 400 },
       );
     }
 
     if (!emailRegex.test(body.email)) {
-      return NextResponse.json({error: 'Invalid email format'}, {status: 400});
+      return NextResponse.json(
+        { error: 'Invalid email format' },
+        { status: 400 },
+      );
     }
 
     // 2. Configure Nodemailer
@@ -59,11 +62,14 @@ export async function POST(req: NextRequest) {
 
     // 4. Return a success response
     return NextResponse.json(
-      {message: 'Email sent successfully'},
-      {status: 200},
+      { message: 'Email sent successfully' },
+      { status: 200 },
     );
-  } catch (error) {
-    log('error', 'Error sending email:', error);
-    return NextResponse.json({error: 'Failed to send email'}, {status: 500});
+  } catch (error: unknown) {
+    logger('error', 'Error sending email:', String(error));
+    return NextResponse.json(
+      { error: 'Failed to send email' },
+      { status: 500 },
+    );
   }
 }

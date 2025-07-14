@@ -1,7 +1,7 @@
 // src/app/components/About.tsx
 import React from 'react';
 
-const About = () => {
+const About = (): React.JSX.Element => {
   return (
     <section id="about" className="py-5 container">
       <h2 className="section-header mb-5">About</h2>

@@ -1,5 +1,5 @@
 'use client';
-import {useState} from 'react';
+import { useState } from 'react';
 
 interface ContactFormData {
   name: string;
@@ -10,11 +10,7 @@ interface ContactFormData {
 // Email validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,3}$/;
 
-interface ContactProps {
-  theme: 'light' | 'dark';
-}
-
-export default function Contact({theme}: ContactProps) {
+export default function Contact(): React.JSX.Element {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
@@ -23,26 +19,26 @@ export default function Contact({theme}: ContactProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const {name, value} = event.target;
-    setFormData({...formData, [name]: value});
+  ): void => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
     // Clear the error when the user starts typing
-    setErrors({...errors, [name]: ''});
+    setErrors({ ...errors, [name]: '' });
   };
 
-  const validateField = (name: string, value: string) => {
+  const validateField = (name: string, value: string): boolean => {
     if (name === 'email') {
       if (!emailRegex.test(value)) {
-        setErrors({...errors, [name]: 'Invalid email format'});
+        setErrors({ ...errors, [name]: 'Invalid email format' });
         return false;
       }
     }
     if (!value) {
-      setErrors({...errors, [name]: `${name} is required`});
+      setErrors({ ...errors, [name]: `${name} is required` });
       return false;
     }
     return true;
@@ -50,12 +46,12 @@ export default function Contact({theme}: ContactProps) {
 
   const handleBlur = (
     event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const {name, value} = event.target;
+  ): void => {
+    const { name, value } = event.target;
     validateField(name, value);
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
     setIsSubmitting(true);
     setSubmitMessage('');
@@ -88,7 +84,7 @@ export default function Contact({theme}: ContactProps) {
       if (response.ok) {
         setSubmitMessage('Thank you for your message!');
         setIsSuccess(true);
-        setFormData({name: '', email: '', message: ''});
+        setFormData({ name: '', email: '', message: '' });
         setErrors({});
       } else {
         setSubmitMessage(`Error: ${data.error}`);
