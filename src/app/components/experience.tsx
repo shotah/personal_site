@@ -5,21 +5,40 @@ const Experience = (): React.JSX.Element => {
       <h2 className="section-header mb-5">Experience Highlights</h2>
       <div className="experience-timeline">
         <div className="timeline-item">
+          <div className="timeline-date">April 2025 - Current</div>
+          <div className="timeline-content">
+            <h4 className="timeline-title">
+              Senior Software Developer (Contract) - Auger (via Quadrant
+              Technologies)
+            </h4>
+            <p>
+              Responsible for frontend development using React SPA, Vite, NX
+              Monorepo, Material UI, Figma, and ReactFlow. My daily activities
+              include feature development, story tracking, QA engagement, and
+              mentoring junior developers.
+            </p>
+            <p>
+              <strong>Technologies:</strong> React, Vite, NX Monorepo, Material
+              UI, Figma, ReactFlow, TypeScript, JavaScript
+            </p>
+          </div>
+        </div>
+        <div className="timeline-item">
           <div className="timeline-date">February 2024 - February 2025</div>
           <div className="timeline-content">
             <h4 className="timeline-title">
               Senior Software Developer (Contract) - Meta (via Magnit)
             </h4>
             <p>
-              As a Senior Software Developer at Meta, I played a key role in
-              developing AI plugins for Sports and POI search. My work laid the
-              groundwork for ongoing evaluation, ensuring the quality and
-              effectiveness of these features. I also leveraged AI to generate
-              synthetic data and perform first-pass quality evaluations,
-              significantly enhancing the efficiency of our testing process.
-              This included building end-to-end evaluation code, interactive
-              dashboards, and comprehensive datasets for the POI Search plugin,
-              enabling iterative improvements in search result quality.
+              Played a key role in developing AI plugins for Sports and POI
+              search. My work laid the groundwork for ongoing evaluation,
+              ensuring the quality and effectiveness of these features. I also
+              leveraged AI to generate synthetic data and perform first-pass
+              quality evaluations, significantly enhancing the efficiency of our
+              testing process. This included building end-to-end evaluation
+              code, interactive dashboards, and comprehensive datasets for the
+              POI Search plugin, enabling iterative improvements in search
+              result quality.
             </p>
             <p>
               <strong>Technologies:</strong> C++, Python, Go, PHP
@@ -34,14 +53,13 @@ const Experience = (): React.JSX.Element => {
               Oxford)
             </h4>
             <p>
-              At Leica Biosystems, I led the development of a multi-threaded Go
-              CLI application for capturing microscope slide images. This
-              project included both the CLI application and the server-side
-              cloud component for AWS, GCP, and Azure, each with 80% test
-              coverage. I also managed the Docker container definitions,
-              ensuring seamless deployment across Lambda, Cloud Run, and other
-              containerized environments. I contributed to defining coding
-              standards and implementing automated deployments.
+              Designed and developed of a multi-threaded Go CLI application for
+              capturing microscope slide images. This project included both the
+              CLI application and the server-side cloud component for AWS, GCP,
+              and Azure, each with 80% test coverage. I also managed the Docker
+              container definitions, ensuring seamless deployment across Lambda,
+              Cloud Run, and other containerized environments. I contributed to
+              defining coding standards and implementing automated deployments.
             </p>
             <p>
               <strong>Technologies:</strong> Go, AWS, GCP, Azure, Docker,
@@ -56,12 +74,11 @@ const Experience = (): React.JSX.Element => {
               Senior Software Developer - SauceLabs (Venture-backed Startup)
             </h4>
             <p>
-              Initially tasked with leading the development of a replacement
-              visualization testing platform. Following the project's
-              cancellation, I pivoted to implement Axe Deque accessibility
-              services in TypeScript, integrating them into Android emulated
-              devices and developing the JavaScript frontend updates to display
-              accessibility results.
+              Led the development of a replacement visualization testing
+              platform. Following the project's cancellation, I pivoted to
+              implement Axe Deque accessibility services in TypeScript,
+              integrating them into Android emulated devices and developing the
+              JavaScript frontend updates to display accessibility results.
             </p>
             <p>
               <strong>Technologies:</strong> Typescript, Go, Javascript, GCP,

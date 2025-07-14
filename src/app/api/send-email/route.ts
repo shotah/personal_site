@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import logger from '@/lib/logger';
+import logger from '../../../lib/logger';
 
 // Define the type for the request body
 interface ContactFormData {

@@ -5,7 +5,8 @@ FROM node:24-alpine AS builder
 WORKDIR /usr/src/app
 
 # disable nextjs telemetry
-RUN npx next telemetry disable
+# NOTE: this causes issues with the build cache in some cases, so it is commented out
+# RUN npx next telemetry disable
 
 # Install and build
 COPY package*.json ./
@@ -18,11 +19,12 @@ RUN npm run build
 ########################
 # Production stage
 ########################
-FROM node:20-alpine AS production
+FROM node:24-alpine AS production
 WORKDIR /usr/src/app
 
 # disable nextjs telemetry
-RUN npx next telemetry disable
+# NOTE: this causes issues with the build cache in some cases, so it is commented out
+# RUN npx next telemetry disable
 
 
 # Create a non-root user
@@ -48,7 +50,7 @@ CMD ["npm", "start"]
 # ########################
 # # Development stage
 # ########################
-# FROM node:20-alpine AS development
+# FROM node:24-alpine AS development
 # WORKDIR /usr/src/app
 
 # # Copy necessary files from the builder stage

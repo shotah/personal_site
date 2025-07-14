@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 
 interface GithubStatsProps {
   username: string;
@@ -85,7 +84,7 @@ const GithubStats: React.FC<GithubStatsProps> = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image
+              <img
                 src={`data:image/svg+xml;base64,${btoa(data.stats)}`}
                 alt="GitHub Stats"
                 className="img-fluid"
@@ -102,7 +101,7 @@ const GithubStats: React.FC<GithubStatsProps> = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image
+              <img
                 src={`data:image/svg+xml;base64,${btoa(data.topLangs)}`}
                 alt="Top Languages"
                 className="img-fluid"
@@ -119,7 +118,7 @@ const GithubStats: React.FC<GithubStatsProps> = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Image
+              <img
                 src={`data:image/svg+xml;base64,${btoa(data.streakStats)}`}
                 alt="GitHub Streak"
                 className="img-fluid"
