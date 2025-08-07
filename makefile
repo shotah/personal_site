@@ -55,11 +55,15 @@ DOCKER_IMAGE_NAME := "$(DOCKER_REPO)/$(DOCKER_CONTAINER_NAME):${DOCKER_TAG}"
 
 .PHONY: build-no-cache
 build-no-cache:
-	docker build --no-cache -t $(DOCKER_IMAGE_NAME) .
+	docker build --no-cache \
+		--build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID=$(NEXT_PUBLIC_GA_MEASUREMENT_ID) \
+		-t $(DOCKER_IMAGE_NAME) .
 
 .PHONY: docker-build
 docker-build:
-	docker build -t $(DOCKER_IMAGE_NAME) .
+	docker build \
+		--build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID=$(NEXT_PUBLIC_GA_MEASUREMENT_ID) \
+		-t $(DOCKER_IMAGE_NAME) .
 
 .PHONY: docker-run
 docker-run: docker-build

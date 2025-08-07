@@ -11,9 +11,16 @@ WORKDIR /usr/src/app
 # Install and build
 COPY package*.json ./
 COPY tsconfig.json ./
+COPY next.config.ts ./
 RUN npm install --omit=dev
 COPY src /usr/src/app/src
 COPY public /usr/src/app/public
+
+# Accept build-time environment variables
+# TODO: Find a better way to handle this
+ARG NEXT_PUBLIC_GA_MEASUREMENT_ID
+ENV NEXT_PUBLIC_GA_MEASUREMENT_ID=$NEXT_PUBLIC_GA_MEASUREMENT_ID
+
 RUN npm run build
 
 ########################
@@ -34,6 +41,7 @@ RUN chown -R nextjs:nodejs /usr/src/app
 
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/package*.json ./
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/tsconfig.json ./
+COPY --from=builder --chown=nextjs:nodejs /usr/src/app/next.config.ts ./
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next ./.next

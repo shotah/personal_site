@@ -59,6 +59,7 @@
     "Makefiles",
     "nextjs",
     "nginxproxy",
+    "nosniff",
     "pipenv",
     "privkey",
     "shotah",

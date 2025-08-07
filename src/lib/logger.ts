@@ -3,7 +3,10 @@
 type LogLevel = 'info' | 'warn' | 'error';
 
 const log = (level: LogLevel, ...args: object[] | string[]): null => {
-  if (process.env.NODE_ENV !== 'production') {
+  // Always log in development, and log warnings/errors in production for debugging
+  const shouldLog = process.env.NODE_ENV !== 'production' || level === 'warn' || level === 'error';
+  
+  if (shouldLog) {
     switch (level) {
       case 'info':
         console.log(...args);

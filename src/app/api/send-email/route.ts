@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { escape } from 'html-escaper';
 import logger from '../../../lib/logger';
 
 // Define the type for the request body
@@ -52,9 +53,9 @@ export async function POST(req: NextRequest): Promise<NextResponse<unknown>> {
       to: process.env.EMAIL_SERVER_USER, // Use the user as the to
       subject: `New Contact Form Submission from ${body.name}`,
       html: `
-        <p>Name: ${body.name}</p>
-        <p>Email: ${body.email}</p>
-        <p>Message: ${body.message}</p>
+        <p>Name: ${escape(body.name)}</p>
+        <p>Email: ${escape(body.email)}</p>
+        <p>Message: ${escape(body.message)}</p>
       `,
     };
 

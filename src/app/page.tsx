@@ -57,7 +57,7 @@ export default function Home(): React.JSX.Element {
         theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'
       } py-5`}
     >
-      <GoogleAnalytics />;
+      <GoogleAnalytics />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <main className="container py-5">
         <Hero theme={theme} />
