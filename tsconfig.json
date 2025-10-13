@@ -1,45 +1,7 @@
-// filepath: c:\workspaces\personal_site\tsconfig.json
 {
-  "compilerOptions": {
-    "strict": true, // Enable strict type-checking options
-    "module": "ESNext", // Use ESNext modules
-    "target": "ESNext", // Target modern JavaScript
-    "rootDir": ".", // Root directory of your source files
-    "outDir": "build", // Output directory for compiled files
-    "allowJs": true, // Allow JavaScript files
-    "skipLibCheck": true, // Skip type checking of declaration files
-    "noEmit": true, // Do not emit compiled files
-    "incremental": true, // Enable incremental compilation
-    "esModuleInterop": true, // Enable interoperability between CommonJS and ES modules
-    "moduleResolution": "node", // Use Node.js module resolution
-    "resolveJsonModule": true, // Allow importing JSON files
-    "isolatedModules": true, // Ensure each file can be transpiled in isolation
-    "jsx": "preserve", // Preserve JSX syntax for Next.js
-    "lib": [
-      "esnext",
-      "dom"
-    ], // Include modern JavaScript and DOM libraries
-    "baseUrl": "./", // Base URL for module resolution
-    "paths": {
-      "@/*": [
-        "src/*"
-      ] // Alias for cleaner imports
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "include": [
-    "src", // Include source files
-    "src/**/*.ts", // Include TypeScript files
-    "test/**/*.ts", // Include test files
-    ".next/types/**/*.ts" // Include Next.js type definitions
-  ],
-  "exclude": [
-    "node_modules", // Exclude dependencies
-    "build", // Exclude build output
-    ".next" // Exclude Next.js build artifacts
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
   ]
 }

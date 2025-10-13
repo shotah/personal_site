@@ -1,5 +1,5 @@
-'use client';
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 interface ContactFormData {
   name: string;
@@ -71,28 +71,49 @@ export default function Contact(): React.JSX.Element {
     }
 
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      // Get EmailJS credentials from environment variables
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_xxxxx';
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_xxxxx';
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'your_public_key';
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSubmitMessage('Thank you for your message!');
+      // Check if EmailJS is properly configured
+      if (serviceId === 'service_xxxxx' || templateId === 'template_xxxxx' || publicKey === 'your_public_key') {
+        // Development mode: Log the form data
+        console.log('Contact Form Submission (Development Mode):', formData);
+        console.log('To enable email sending, configure EmailJS credentials in GitHub Secrets.');
+        
+        // Simulate successful submission
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        setSubmitMessage('Thank you for your message! (Development Mode - Email not sent)');
         setIsSuccess(true);
         setFormData({ name: '', email: '', message: '' });
         setErrors({});
       } else {
-        setSubmitMessage(`Error: ${data.error}`);
-        setIsSuccess(false);
+        // Use EmailJS if properly configured
+        const emailData = {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        };
+
+        const result = await emailjs.send(
+          serviceId,
+          templateId,
+          emailData,
+          publicKey
+        );
+
+        if (result.status === 200) {
+          setSubmitMessage('Thank you for your message!');
+          setIsSuccess(true);
+          setFormData({ name: '', email: '', message: '' });
+          setErrors({});
+        }
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      setSubmitMessage('An unexpected error occurred.');
+      setSubmitMessage('An unexpected error occurred. Please try again.');
       setIsSuccess(false);
     } finally {
       setIsSubmitting(false);

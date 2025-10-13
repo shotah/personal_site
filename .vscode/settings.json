@@ -66,6 +66,7 @@
     "turbopack",
     "vercel",
     "vhost",
+    "VITE",
     "webroot"
   ]
 }

@@ -1,8 +1,4 @@
-// src/app/components/Hero.tsx
-'use client';
 import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
-import Image from 'next/image';
-import Link from 'next/link';
 
 interface HeroProps {
   theme: 'light' | 'dark';
@@ -78,20 +74,19 @@ const Hero = ({ theme }: HeroProps): React.JSX.Element => {
             className="rounded-circle overflow-hidden shadow"
             style={{ width: '150px', height: '150px' }}
           >
-            <Image
+            <img
               src="/profile.jpg"
               alt="Christopher Blodgett Profile Picture"
               width={150}
               height={150}
               style={{ objectFit: 'cover' }}
-              priority
             />
           </div>
         </div>
         <div className="mt-4">
-          <Link href="#contact" className={`btn btn-custom`}>
+          <a href="#contact" className={`btn btn-custom`}>
             Contact Me
-          </Link>
+          </a>
         </div>
       </div>
     </section>

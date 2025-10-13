@@ -1,4 +1,3 @@
-// src/app/components/Skills.tsx
 interface SkillsProps {
   theme: 'light' | 'dark';
 }
@@ -6,8 +5,7 @@ interface SkillsProps {
 const Skills = ({ theme }: SkillsProps): React.JSX.Element => {
   return (
     <section id="skills" className="py-5 container">
-      <h2 className="mb-5 section-header">Skills</h2>{' '}
-      {/* Added section-header class */}
+      <h2 className="mb-5 section-header">Skills</h2>
       <div className="row">
         <div className="col-md-2 offset-md-1">
           <h5

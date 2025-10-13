@@ -1,119 +1,117 @@
-# Personal Site
+# Personal Portfolio Website
 
-This repository contains the source code for my personal website. It's built with modern web technologies, emphasizing maintainability, scalability, and ease of deployment.  This project leverages environment variables, a `Makefile` for common tasks, and automated workflows for a streamlined development and deployment experience.
+A modern, responsive personal portfolio website built with React, TypeScript, and Vite. Deployed automatically to Cloudflare Pages via GitHub Actions.
 
-## Key Features
+## 🚀 Features
 
-* **Modern Full-Stack Development:** Built with a focus on performance, responsiveness, and a clean, maintainable codebase.
-* **Dockerized Deployment:**  Designed for easy deployment using Docker and Docker Compose, ensuring consistency across environments.
-* **Environment Variable Configuration:** All sensitive and configurable settings are managed through `.env` files, keeping your code clean and secure.
-* **Makefile for Common Tasks:**  A `Makefile` is provided to simplify common development and deployment tasks.
+- **React SPA** - Single Page Application built with React 19
+- **TypeScript** - Type-safe code for better development experience
+- **Vite** - Lightning fast development and optimized production builds
+- **Bootstrap 5** - Responsive design with modern UI components
+- **EmailJS Integration** - Contact form with email notifications
+- **Dark/Light Theme** - Toggle between themes with localStorage persistence
+- **Cloudflare Pages** - Automatic deployment via GitHub Actions
+- **ESLint** - Code quality and consistency checks
 
----
+## 🛠️ Tech Stack
 
-## Getting Started
+- **Frontend**: React 19, TypeScript, Vite
+- **Styling**: Bootstrap 5, Custom CSS
+- **Email**: EmailJS
+- **Deployment**: Cloudflare Pages
+- **CI/CD**: GitHub Actions
 
-### Prerequisites
+## 📦 Installation
 
-Before you begin, ensure you have the following installed:
+1. Clone the repository:
+```bash
+git clone https://github.com/shotah/personal_site.git
+cd personal_site
+```
 
-* Node.js (v16 or later)
-* Docker
-* Docker Compose
-* Git
-* Make
+2. Install dependencies:
+```bash
+npm install
+```
 
-### Installation and Setup
+3. Create a `.env` file based on `.env.example`:
+```bash
+cp .env.example .env
+```
 
-1. **Clone the Repository:**
+4. Configure your EmailJS credentials in `.env`:
+   - Sign up at [EmailJS](https://www.emailjs.com/)
+   - Create a service and template
+   - Add your credentials to `.env`
 
-    ```bash
-    git clone https://github.com/shotah/personal_site.git 
-    cd personal_site
-    ```
+## 🏃 Development
 
-2. **Install Dependencies:**
+Start the development server:
+```bash
+npm run dev
+```
 
-    ```bash
-    npm install
-    ```
+The site will be available at `http://localhost:5173`
 
-3. **Configure Environment Variables:**
+## 🔨 Build
 
-    * Create a `.env` file in the root directory of the project.
-    * Populate the `.env` file with the necessary environment variables.  **Do not commit this file to version control.**
-    * A `.env.example` file is provided as a template. Copy it to `.env` and fill in your values.
+Build for production:
+```bash
+npm run build
+```
 
-    ```bash
-    cp .env.example .env
-    ```
+Preview the production build:
+```bash
+npm run preview
+```
 
-    **Example `.env` contents:**
+## 🧹 Linting
 
-    ```t
-    # Email settings
-    EMAIL_SERVER_USER=your_email@example.com
-    EMAIL_SERVER_PASSWORD=your_app_password
+Run ESLint:
+```bash
+npm run lint
+```
 
-    # Let's Encrypt settings
-    LETSENCRYPT_HOSTNAME=your_domain.com
-    LETSENCRYPT_EMAIL=your_email@example.com
+Fix linting errors:
+```bash
+npm run fix
+```
 
-    # Docker settings
-    DOCKER_CONTAINER_NAME=your_container_name
-    DOCKER_REPO=your_docker_repo
-    DOCKER_TAG=latest
+## 🚢 Deployment
 
-    # Deployment settings
-    REMOTE_USER=your_remote_user
-    REMOTE_SERVER=your_server_ip
-    REMOTE_PATH=/path/to/deployment/directory
+This project automatically deploys to Cloudflare Pages when you push to the `main` branch.
 
-    # public google tracking token ID
-    NEXT_PUBLIC_GA_MEASUREMENT_ID=YOUR_GA4_MEASUREMENT_ID
-    ```
+### Setup GitHub Secrets
 
-    **Important:** Replace the placeholder values in `.env` with your actual credentials and settings.
+Add the following secrets to your GitHub repository:
 
-4. **Using the Makefile**
-    The `Makefile` contains common tasks to help with development.
-    * `make build` - Builds the project
-    * `make start` - Starts the project locally
-    * `make stop` - Stops the project locally
-    * `make deploy` - Deploys the project to the remote server.
-    * `make clean` - Removes build artifacts.
+1. **EmailJS Credentials:**
+   - `VITE_EMAILJS_SERVICE_ID`
+   - `VITE_EMAILJS_TEMPLATE_ID`
+   - `VITE_EMAILJS_PUBLIC_KEY`
 
-    ```bash
-    make build
-    make start
-    ```
+2. **Cloudflare Credentials:**
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
 
-### GitHub Actions Workflow
+### Manual Deployment
 
-The `.github/workflows` directory contains the configuration for the automated CI/CD pipeline. To ensure the workflow functions correctly, you must configure the following secrets in your GitHub repository settings:
+You can also deploy manually using the Cloudflare Pages dashboard by uploading the `dist` folder.
 
-* **`DOCKER_USERNAME`:** Your Docker Hub or other container registry username.
-* **`DOCKER_PASSWORD`:** Your Docker Hub or other container registry password or personal access token.
-* **`DOCKER_CONTAINER_NAME`:** The name of the docker container. This should match the `DOCKER_CONTAINER_NAME` in your `.env` file.
+## 📝 License
 
-These secrets are used to authenticate with your container registry and push the built Docker image.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
+## 👤 Author
 
-## Contributing
+**Christopher Blodgett**
+- LinkedIn: [christopherblodgett](https://linkedin.com/in/christopherblodgett)
+- GitHub: [@shotah](https://github.com/shotah)
+- Website: [chris.bldhosting.com](https://chris.bldhosting.com)
 
-Contributions are welcome! Please feel free to open issues or submit pull requests.
+## 🙏 Acknowledgments
 
-## License
-
-[MIT License]
-
----
-
-## Additional Notes
-
-* **Security:** Never commit your `.env` file to version control. It contains sensitive information.
-* **Docker Image Naming:** Be sure to include the image name in the `DOCKER_REPO` variable. For example: `your-docker-username/personal-site-image`
-* **Remote Deployment:** The `make deploy` command assumes you have SSH access configured to your remote server.
-* **Testing:** While not explicitly mentioned, consider adding a section about testing if you have automated tests.
-* **Documentation:** If you have any other documentation, like an API spec, or a design doc, you should link to it here.
+- Bootstrap for the UI components
+- EmailJS for the contact form functionality
+- Cloudflare Pages for hosting
+- React Icons for the icon library

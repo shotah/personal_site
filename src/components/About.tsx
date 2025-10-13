@@ -1,4 +1,3 @@
-// src/app/components/About.tsx
 import React from 'react';
 
 const About = (): React.JSX.Element => {

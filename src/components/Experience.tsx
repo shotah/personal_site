@@ -1,4 +1,3 @@
-// src/app/components/Experience.tsx
 const Experience = (): React.JSX.Element => {
   return (
     <section id="experience" className="py-5">

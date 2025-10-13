@@ -1,8 +1,3 @@
-// src/app/components/Navbar.tsx
-'use client';
-
-import Link from 'next/link'; // Import the Link component
-
 interface NavbarProps {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
@@ -30,14 +25,14 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps): React.JSX.Element => {
           >
             <ul className={`navbar-nav`}>
               <li className="nav-item">
-                <Link
+                <a
                   href="/"
                   className={`nav-link navbar-link text-${
                     theme === 'dark' ? 'light' : 'dark'
                   }`}
                 >
                   Home
-                </Link>{' '}
+                </a>
               </li>
               <li className="nav-item">
                 <a
@@ -57,16 +52,6 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps): React.JSX.Element => {
                   href="#skills"
                 >
                   Skills
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className={`nav-link navbar-link text-${
-                    theme === 'dark' ? 'light' : 'dark'
-                  }`}
-                  href="#github-stats"
-                >
-                  GitHub Stats
                 </a>
               </li>
               <li className="nav-item">

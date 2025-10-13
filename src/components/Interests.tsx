@@ -1,7 +1,4 @@
-// src/app/components/Interests.tsx
-'use client';
 import React from 'react';
-import Image from 'next/image';
 
 const Interests: React.FC = () => {
   const images = [
@@ -42,11 +39,9 @@ const Interests: React.FC = () => {
                   key={index}
                   className={`carousel-item ${index === 0 ? 'active' : ''}`}
                 >
-                  <Image
+                  <img
                     src={image}
                     alt={`Interest ${index + 1}`}
-                    width={600}
-                    height={400}
                     className="d-block w-100 rounded"
                     style={{ objectFit: 'cover', height: '400px' }}
                   />

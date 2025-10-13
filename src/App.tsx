@@ -1,20 +1,14 @@
-// src/app/page.tsx
-'use client';
-
 import { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './components/navbar';
-import Hero from './components/hero';
-import About from './components/about';
-import Skills from './components/skills';
-import Experience from './components/experience';
-import Contact from './components/contact';
-import GithubStats from './components/github';
-import Interests from './components/interests';
-import GoogleAnalytics from './components/googleanalytics';
-import React from 'react';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Contact from './components/Contact';
+import Interests from './components/Interests';
 
-export default function Home(): React.JSX.Element {
+function App() {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
@@ -43,10 +37,6 @@ export default function Home(): React.JSX.Element {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  useEffect(() => {
-    import('bootstrap/dist/js/bootstrap.bundle.min.js');
-  }, []);
-
   const toggleTheme = (): void => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
@@ -57,13 +47,11 @@ export default function Home(): React.JSX.Element {
         theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'
       } py-5`}
     >
-      <GoogleAnalytics />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <main className="container py-5">
         <Hero theme={theme} />
         <About />
         <Skills theme={theme} />
-        <GithubStats username="shotah" theme={theme} />
         <Interests />
         <Experience />
         <Contact />
@@ -71,3 +59,5 @@ export default function Home(): React.JSX.Element {
     </div>
   );
 }
+
+export default App;
